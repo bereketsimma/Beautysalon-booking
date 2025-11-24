@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - BeautyBook{% endblock %}
+
+{% block content %}
+<style>
+:root {
+    --primary-purple: #8b5cf6;
+    --primary-purple-dark: #7c3aed;
+    --secondary-purple: #a78bfa;
+    --light-purple: #f5f3ff;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(180deg, #faf5ff 0%, #f5f3ff 100%);
+    min-height: 100vh;
+}
+
+
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.hero .btn-primary {
+    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    margin-top: 1rem;
+    box-shadow: 0 4px 20px -2px rgba(139,92,246,0.3);
+}
+
+.hero .btn-primary:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px -4px rgba(139,92,246,0.4);
+}
+
+/* Sections */
+.section-title {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px -4px rgba(139,92,246,0.1);
+}
+
+.card img {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.card-body h5 {
+    font-weight: 600;
+}
+
+.card-body p {
+    color: var(--text-muted);
+}
+
+/* Stylists section */
+.stylist-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: -60px;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px -2px rgba(139,92,246,0.2);
+}
+
+/* CTA */
+.cta {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.cta h2 {
+    font-weight: 700;
+}
+
+.cta p {
+    color: var(--text-muted);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 4rem;
+}
+</style>
+>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h1>Welcome to BeautyBook</h1>
+    <p>Your beauty appointments, simplified. Book your favorite services in a few clicks!</p>
+    <a href="{% url 'services' %}" class="btn btn-primary btn-lg">View Services</a>
+</div>
+
+<!-- Services Section -->
+<div class="container my-5">
+    <h2 class="section-title">Our Popular Services</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Haircut</h5>
+                    <p>Professional stylists for the perfect look</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Manicure & Pedicure</h5>
+                    <p>Pamper your hands and feet with expert care</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+]                <div class="card-body text-center">
+                    <h5 class="card-title">Facial Treatments</h5>
+                    <p>Rejuvenate your skin with professional facials</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stylists Section -->
+<div class="container my-5">
+    <h2 class="section-title">Meet Our Stylists</h2>
+    <div class="row g-4">
+        {% for stylist in stylists %}
+        <div class="col-md-3">
+            <div class="card text-center h-100 p-3">
+]                <div class="card-body mt-2">
+                    <h5 class="card-title">{{ stylist.name }}</h5>
+                    <p class="text-muted">{{ stylist.specialty }}</p>
+                    <a href="{% url 'stylist_list' %}" class="btn btn-outline-primary btn-sm">View Profile</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+    <h2>Ready to Book Your Appointment?</h2>
+    <p>Select your service and stylist, then pick a time slot that works for you.</p>
+    <a href="{% url 'booking_form' %}" class="btn btn-primary btn-lg">Book Now</a>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    &copy; 2025 BeautyBook. All rights reserved.
+</div>
+
+{% endblock %}

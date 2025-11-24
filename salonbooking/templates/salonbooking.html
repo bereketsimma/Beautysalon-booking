@@ -1,0 +1,19 @@
+{# templates/todo_list.html #}
+{% extends "base.html" %}
+
+{% block title %}Todo List – My Django App{% endblock %}
+
+{% block extra_css %}
+<style>
+    .completed   { color: #28a745; text-decoration: line-through; }
+    .not-completed { color: #dc3545; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Todo List</h1>
+
+<ul class="list-group">
+   <li>my salon booking app</li>
+</ul>   
+{% endblock %}
