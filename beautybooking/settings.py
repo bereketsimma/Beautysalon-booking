@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-zpjb9=-_2v=y#(ka-+myudpl@%7vi2%ysl90n#8%rpsd^ya!dc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['beautybooking.onrender.com']
 
 
 # Application definition
@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'beautybooking.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:beki2112@localhost:5432/salon_booking',         conn_max_age=600
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600
     )
 }
 
