@@ -13,7 +13,7 @@ from .serializers import CustomerRegisterSerializer
 # Create your views here.
 
 class CustomerRegisterView(APIView):
-    def post(self, request):
+    async def post(self, request):
         serializer = CustomerRegisterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
