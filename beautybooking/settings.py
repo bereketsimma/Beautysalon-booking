@@ -28,7 +28,10 @@ SECRET_KEY = 'django-insecure-zpjb9=-_2v=y#(ka-+myudpl@%7vi2%ysl90n#8%rpsd^ya!dc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['beautybooking-firl.onrender.com']
+ALLOWED_HOSTS = [
+    "127.0.0.1",                     # local
+    "localhost",  
+    'beautybooking-firl.onrender.com']
 
 
 # Application definition
@@ -40,8 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'salonbooking',  # <-- add your app here
-
+    'rest_framework',
+    'rest_framework_simplejwt',  # <-- COMMA is REQUIRED here
+    'corsheaders',
+    'salonbooking',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +58,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
-
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'beautybooking.urls'
 
 TEMPLATES = [
