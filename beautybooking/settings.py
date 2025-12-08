@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Load the .env file
+load_dotenv()
+
 
 import dj_database_url
 
@@ -90,6 +95,7 @@ DATABASES = {
         conn_max_age=600
     )
 }
+print("DATABASE_URL =", os.getenv("DATABASE_URL"))
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
