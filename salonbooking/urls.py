@@ -9,5 +9,5 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('stylists/', views.stylist, name='stylist_list'),
     path('booking/', views.booking_form, name='booking_form'),  
-    path('register/', views.CustomerRegisterView.as_view(), name='customer-register'),   # path('logout/', views.logout_view, name='logout'),
+    path('api/register/', views.CustomerRegisterView.as_view(), name='customer-register'),   # path('logout/', views.logout_view, name='logout'),
 ]
