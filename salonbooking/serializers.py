@@ -10,7 +10,7 @@ class CustomerRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ['username', 'email', 'password', 'phone', 'email_address']  # include Customer fields
+        fields = ['username', 'email', 'password', 'phone',]  # include Customer fields
 
     def create(self, validated_data):
         # Extract the user data
