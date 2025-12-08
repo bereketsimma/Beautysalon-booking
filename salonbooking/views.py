@@ -11,9 +11,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import CustomerRegisterSerializer
 # Create your views here.
-
 class CustomerRegisterView(APIView):
-    async def post(self, request):
+    def post(self, request):
         serializer = CustomerRegisterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -22,6 +21,7 @@ class CustomerRegisterView(APIView):
                 "user": serializer.data
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 def home(request):
