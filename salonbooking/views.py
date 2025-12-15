@@ -13,13 +13,13 @@ from .serializers import  CustomerRegisterSerializer
 from django.contrib.auth.models import User 
 from .models import Customer
 
-# Create your views here.class RegisterAPI(APIView):
+
+
 class RegisterAPI(APIView):
     def post(self, request):
         username = request.data.get('username')
         email = request.data.get('email')
         password = request.data.get('password')
-        phone = request.data.get('phone')
 
         # Check if username or email exists
         if User.objects.filter(username=username).exists():
@@ -41,16 +41,13 @@ class RegisterAPI(APIView):
         )
 
         # Create Customer linked to User
-        Customer.objects.create(
-            user=user,
-            phone=phone
-        )
+        # phone will remain null since user doesn't enter it
+        customer, created = Customer.objects.get_or_create(user=user)
 
         return Response(
             {"message": "User registered successfully"},
             status=status.HTTP_201_CREATED
         )
-    
 def home(request):
       return render(request, 'home.html')
 

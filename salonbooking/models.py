@@ -16,21 +16,38 @@ class SalonBooking(models.Model):  # <-- check spelling & capitalization
 # ----------------------
 # Customer Model
 # ----------------------
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='customer_profile')
-    phone = models.CharField(max_length=20, blank=True, null=True)
-    email_address = models.EmailField(max_length=255, blank=True, null=True)   
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='customer_profile'
+    )
+    # phone = models.CharField(max_length=20, blank=True, null=True)   
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        # Always gets username from linked User
         return self.user.username
 
-# Auto-create or update Customer whenever a User is created
+    @property
+    def email(self):
+        # Access email directly from linked User
+        return self.user.email
+
+
+# Signal: Auto-create Customer when a User is created
 @receiver(post_save, sender=User)
 def create_or_update_customer(sender, instance, created, **kwargs):
     if created:
         Customer.objects.create(user=instance)
+    else:
+        # Optionally, you can update any Customer fields if needed
+        instance.customer_profile.save()
+
 
 
 # ----------------------
