@@ -10,23 +10,43 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import CustomerRegisterSerializer
-# Create your views here.
-class CustomerRegisterView(APIView):
+# Create your views here.class RegisterAPI(APIView):
+class RegisterAPI(APIView):
     def post(self, request):
-        serializer = CustomerRegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({
-                "message": "User registered successfully",
-                "user": serializer.data
-            }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
+        phone = request.data.get('phone')
 
+        # Check if username or email exists
+        if User.objects.filter(username=username).exists():
+            return Response(
+                {"error": "Username already exists"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if User.objects.filter(email=email).exists():
+            return Response(
+                {"error": "Email already exists"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
+        # Create User
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
 
-def home(request):
-    return render(request, 'home.html')
+        # Create Customer linked to User
+        Customer.objects.create(
+            user=user,
+            phone=phone
+        )
 
+        return Response(
+            {"message": "User registered successfully"},
+            status=status.HTTP_201_CREATED
+        )
 
 # def register(request):
 #     if request.method == "POST":
