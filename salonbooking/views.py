@@ -47,6 +47,9 @@ class RegisterAPI(APIView):
             {"message": "User registered successfully"},
             status=status.HTTP_201_CREATED
         )
+    
+    def home(request):
+      return render(request, 'home.html')
 
 # def register(request):
 #     if request.method == "POST":
