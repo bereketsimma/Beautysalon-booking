@@ -48,7 +48,7 @@ class RegisterAPI(APIView):
             status=status.HTTP_201_CREATED
         )
     
-    def home(request):
+def home(request):
       return render(request, 'home.html')
 
 # def register(request):
