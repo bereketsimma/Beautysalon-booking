@@ -9,5 +9,5 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('stylists/', views.stylist, name='stylist_list'),
     path('booking/', views.booking_form, name='booking_form'),  
-    path('api/register/', RegisterAPI.as_view()),
+    path('api/register/', views.RegisterAPI.as_view()),
 ]
