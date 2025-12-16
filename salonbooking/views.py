@@ -50,7 +50,7 @@ class RegisterAPI(APIView):
             status=status.HTTP_201_CREATED
         )
     
-    def login_user(request):
+def login_user(request):
         email = request.data.get('email')
         password = request.data.get('password')
 
