@@ -85,18 +85,6 @@ def home(request):
 
 
 
-def login_view(request):
-    if request.method == 'get':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, "Invalid username or password")
-    else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
 
 
 def logout_view(request):
