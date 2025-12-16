@@ -11,6 +11,6 @@ urlpatterns = [
     path('stylists/', views.stylist, name='stylist_list'),
     path('booking/', views.booking_form, name='booking_form'),  
     path('api/register/', views.RegisterAPI.as_view()),
-    path('api/login/', login_user),
+    path('api/login/',views.login_user.as_view()),
 
 ]
