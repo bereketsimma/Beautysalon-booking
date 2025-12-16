@@ -12,6 +12,7 @@ from rest_framework import status
 from .serializers import  CustomerRegisterSerializer
 from django.contrib.auth.models import User 
 from .models import Customer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 
@@ -48,6 +49,26 @@ class RegisterAPI(APIView):
             {"message": "User registered successfully"},
             status=status.HTTP_201_CREATED
         )
+    
+    def login_user(request):
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        if not email or not password:
+            return Response({'success': False, 'message': 'Email and password required'}, status=400)
+
+        user = authenticate(username=email, password=password)
+        if user:
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'success': True,
+                'message': 'Login successful',
+                'access': str(refresh.access_token),
+                'refresh': str(refresh),
+                'user': {'email': user.email, 'name': user.first_name}
+            })
+        else:
+            return Response({'success': False, 'message': 'Invalid credentials'}, status=401)
 def home(request):
       return render(request, 'home.html')
 
