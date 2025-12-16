@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from .views import login_user
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -10,6 +9,6 @@ urlpatterns = [
     path('stylists/', views.stylist, name='stylist_list'),
     path('booking/', views.booking_form, name='booking_form'),  
     path('api/register/', views.RegisterAPI.as_view()),
-    path('api/login/',views.login_user, name='login_user'),
+    path('api/login/',views.loginAPI.as_view()),
 
 ]
