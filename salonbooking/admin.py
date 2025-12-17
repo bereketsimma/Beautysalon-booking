@@ -20,10 +20,9 @@ except Exception:
 
 # Register your models here.
 
-from .models import Appointment, SalonBooking, Service, Staff
+from .models import Appointment,  Service, Staff
 
 try:
-	admin.site.register(SalonBooking)
 	admin.site.register(Service)
 	admin.site.register(Staff)
 	admin.site.register(Appointment)

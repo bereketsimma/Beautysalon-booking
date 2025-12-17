@@ -4,17 +4,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-class SalonBooking(models.Model):  # <-- check spelling & capitalization
-    name = models.CharField(max_length=100)
-    service = models.CharField(max_length=100)
-    date = models.DateTimeField()
-
-    def __str__(self):
-        return self.name
-
-
-
-
 class Customer(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='customer_profile'

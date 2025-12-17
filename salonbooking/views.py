@@ -1,19 +1,13 @@
-from .models import CompletedJob, SalonBooking
+from .models import CompletedJob, Appointment, Service, Staff,Customer, Review
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib import messages
+from django.contrib.auth import  authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Service, Staff,   Appointment
-from .form import RegisterForm, LoginForm, BookingForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.generics import ListAPIView
-from .serializers import AppointmentSerializer, CompletedJobSerializer, ServiceSerializer
-from .serializers import  CustomerRegisterSerializer, StaffSerializer, ReviewSerializer
+from .serializers import AppointmentSerializer, CompletedJobSerializer, ServiceSerializer, StaffSerializer, CustomerRegisterSerializer
 from django.contrib.auth.models import User 
-from .models import Customer, Review, Staff
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 
@@ -94,43 +88,9 @@ def home(request):
 
 
 
-
-class StaffListAPIView(APIView):
-    permission_classes = [IsAuthenticated]  # Only logged-in users can post reviews
-
-    def get(self, request):
-        staff_members = Staff.objects.all()
-        serializer = StaffSerializer(staff_members, many=True, context={'request': request})
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        """
-        Create a review for a staff.
-        Request body: {
-            "staff_id": 1,
-            "rating": 5,
-            "comment": "Great service!"
-        }
-        """
-        user = request.user
-        staff_id = request.data.get('staff_id')
-        rating = request.data.get('rating')
-        comment = request.data.get('comment', '')
-
-        try:
-            staff = Staff.objects.get(id=staff_id)
-        except Staff.DoesNotExist:
-            return Response({'detail': 'Staff not found'}, status=status.HTTP_404_NOT_FOUND)
-
-        review = Review.objects.create(
-            staff=staff,
-            user=user,
-            rating=rating,
-            comment=comment
-        )
-
-        serializer = ReviewSerializer(review)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+class StaffListAPIView(ListAPIView):
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
 class StaffByServiceAPIView(APIView):
     """
     GET: Fetch staff filtered by service ID
