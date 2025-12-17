@@ -49,7 +49,6 @@ class RegisterAPI(APIView):
 class LoginAPI(APIView):
 
     def post(self, request):
-        # Get email and password from the request body
         email = request.data.get('email')
         password = request.data.get('password')
 
@@ -59,11 +58,20 @@ class LoginAPI(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Authenticate user
-        user = authenticate(username=email, password=password)
+        # Look up the user by email first
+        try:
+            user_obj = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response(
+                {'success': False, 'message': 'Invalid credentials'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        # Authenticate using the username from the user object
+        user = authenticate(username=user_obj.username, password=password)
 
         if user:
-            # Create JWT tokens
+            # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
             return Response({
                 'success': True,
@@ -75,7 +83,9 @@ class LoginAPI(APIView):
         else:
             return Response(
                 {'success': False, 'message': 'Invalid credentials'},
-                status=status.HTTP_401_UNAUTHORIZED)
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
 
 class ServiceListAPIView(ListAPIView):
     queryset = Service.objects.all()
