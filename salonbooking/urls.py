@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('api/completed-jobs/', views.CompletedJobListAPIView.as_view(), name='completed-job-list'),
     path('api/completed-jobs/service/<int:service_id>/', views.CompletedJobByServiceAPIView.as_view(), name='completed-job-by-service'),
-    path('api/staff-by-service/<int:service_id>/', views.StaffByServiceAPIView.as_view(), name='staff-by-service'),
+    path('api/staff-by-service/service/<int:service_id>/', views.StaffByServiceAPIView.as_view(), name='staff-by-service'),
 
 
     # List staff filtered by service (GET)
