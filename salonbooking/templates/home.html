@@ -119,7 +119,6 @@ body {
 <div class="hero">
     <h1>Welcome to BeautyBook</h1>
     <p>Your beauty appointments, simplified. Book your favorite services in a few clicks!</p>
-    <a href="{% url 'services' %}" class="btn btn-primary btn-lg">View Services</a>
 </div>
 
 <!-- Services Section -->
@@ -163,7 +162,6 @@ body {
 ]                <div class="card-body mt-2">
                     <h5 class="card-title">{{ stylist.name }}</h5>
                     <p class="text-muted">{{ stylist.specialty }}</p>
-                    <a href="{% url 'stylist_list' %}" class="btn btn-outline-primary btn-sm">View Profile</a>
                 </div>
             </div>
         </div>
@@ -175,7 +173,6 @@ body {
 <div class="cta">
     <h2>Ready to Book Your Appointment?</h2>
     <p>Select your service and stylist, then pick a time slot that works for you.</p>
-    <a href="{% url 'booking_form' %}" class="btn btn-primary btn-lg">Book Now</a>
 </div>
 
 <!-- Footer -->
