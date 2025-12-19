@@ -50,7 +50,7 @@ class StaffSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Staff
-        fields = ['id', 'user', 'phone', 'description', 'image', 'services', 'reviews']
+        fields = ['id', 'username', 'phone', 'description', 'image', 'services', 'reviews']
 class CompletedJobSerializer(serializers.ModelSerializer):
     service_name = serializers.ReadOnlyField(source='service.name')
     staff_name = serializers.ReadOnlyField(source='staff.user.get_full_name')
