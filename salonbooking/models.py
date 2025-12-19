@@ -48,7 +48,7 @@ class Staff(models.Model):
     image = models.ImageField(upload_to="staff_images/", blank=True, null=True)  # Staff profile picture
 
     def __str__(self):
-        return self.user.get_full_name() or self.user.username
+        return self.username
 
     @property
     def average_rating(self):
