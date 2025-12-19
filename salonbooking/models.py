@@ -40,7 +40,8 @@ class Service(models.Model):
         return self.name
 
 class Staff(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=255, blank=False, null=False)
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
     services = models.ManyToManyField(Service, related_name="staffs")  # Staff can perform multiple services
     phone = models.CharField(max_length=20, blank=True)
     description = models.TextField(blank=True, null=True)  # Staff bio or expertise
