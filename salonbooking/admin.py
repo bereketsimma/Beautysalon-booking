@@ -20,12 +20,15 @@ except Exception:
 
 # Register your models here.
 
-from .models import Appointment,  Service, Staff
+from .models import Appointment, CompletedJob, Review,  Service, Staff
 
 try:
+	# Register your models here.
 	admin.site.register(Service)
 	admin.site.register(Staff)
 	admin.site.register(Appointment)
+	admin.site.register(Review)
+	admin.site.register(CompletedJob)  # Register the admin site itself
 except Exception:
 	# If registration fails (e.g. running outside Django), ignore to avoid import errors.
 	pass
